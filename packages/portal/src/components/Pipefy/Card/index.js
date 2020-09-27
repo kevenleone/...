@@ -1,13 +1,21 @@
+import { ClayInput } from '@clayui/form'
+import ClayIcon from '@clayui/icon'
 import classNames from 'classnames'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { useDispatch } from 'react-redux'
 
+// import spritemap from '../../../assets/spritemap.svg'
+
 export default ({ data, index, listIndex }) => {
+  const [state, setState] = useState({
+    editMode: false,
+    inputValue: data.content
+  })
   const dispatch = useDispatch()
   const ref = useRef()
   const [{ isDragging }, dragRef] = useDrag({
-    collect: monitor => ({
+    collect: (monitor) => ({
       isDragging: monitor.isDragging()
     }),
     item: {
@@ -26,7 +34,10 @@ export default ({ data, index, listIndex }) => {
       const draggedIndex = item.index
       const targetIndex = index
 
-      if (draggedIndex === targetIndex && draggedListIndex === targetListIndex) {
+      if (
+        draggedIndex === targetIndex &&
+        draggedListIndex === targetListIndex
+      ) {
         return
       }
 
@@ -46,7 +57,10 @@ export default ({ data, index, listIndex }) => {
 
       dispatch({
         payload: {
-          from: draggedIndex, fromList: draggedListIndex, to: targetIndex, toList: targetListIndex
+          from: draggedIndex,
+          fromList: draggedListIndex,
+          to: targetIndex,
+          toList: targetListIndex
         },
         type: 'BOARD_MOVE_CARD_SAGA'
       })
@@ -59,16 +73,61 @@ export default ({ data, index, listIndex }) => {
   dragRef(dropRef(ref))
 
   const labels = data.labels || []
+  const { content, user } = data
+  const { editMode } = state
+
+  const onClickAction = () => {
+    if (editMode) {
+      dispatch({
+        payload: {
+          fromIndex: index,
+          fromList: listIndex,
+          value: state.inputValue
+        },
+        type: 'BOARD_RENAME_CARD_SAGA'
+      })
+    }
+
+    setState({
+      ...state,
+      editMode: !editMode
+    })
+  }
 
   return (
-    <div className={classNames('pipefy__card', {
-      isDragging
-    })} ref={ref}>
+    <div
+      className={classNames('pipefy__card', {
+        isDragging
+      })}
+      ref={ref}
+    >
       <header>
-        {labels.map(label => (<label key={label} style={{ backgroundColor: label }} />))}
+        {labels.map((label) => (
+          <label key={label} style={{ backgroundColor: label }} />
+        ))}
+        <ClayIcon
+          className="edit-card"
+          symbol={editMode ? 'disk' : 'pencil'}
+          onClick={onClickAction}
+        />
       </header>
-      <p>{data.content}</p>
-      <img src={data.user || 'https://api.adorable.io/avatars/285/abott@adorable.io.png'} alt=""></img>
+      {state.editMode ? (
+        <ClayInput
+          component="textarea"
+          onChange={({ target: { value } }) =>
+            setState({ ...state, inputValue: value })
+          }
+          value={state.inputValue}
+        />
+      ) : (
+        <p>{content}</p>
+      )}
+      <img
+        src={
+          user || 'https://api.adorable.io/avatars/285/abott@adorable.io.png'
+        }
+        alt=""
+      />
     </div>
   )
 }

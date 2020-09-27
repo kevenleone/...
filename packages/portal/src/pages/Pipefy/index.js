@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
+import ManagementToolbar from '../../components/ManagementToolbarShort'
 import Board from '../../components/Pipefy/Board'
 
 const Pipefy = () => {
@@ -14,6 +15,7 @@ const Pipefy = () => {
 
   return (
     <div>
+      <ManagementToolbar />
       <Board />
     </div>
   )

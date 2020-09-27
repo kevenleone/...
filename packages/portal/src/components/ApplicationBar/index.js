@@ -17,7 +17,7 @@ const ApplicationBar = ({ history: { location, push } }) => {
               symbol="angle-left" />
           </li>}
         </ul>
-        <div className="navbar-title navbar-text-truncate">App Builder Scenarios</div>
+        <div className="navbar-title navbar-text-truncate">Fun Retro</div>
         <ul className="navbar-nav">
           <li className="dropdown nav-item">
             <button

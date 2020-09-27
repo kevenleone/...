@@ -1158,6 +1158,13 @@
     "@clayui/loading-indicator" "^3.1.0"
     fuzzy "^0.1.3"
 
+"@clayui/badge@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@clayui/badge/-/badge-3.1.0.tgz#de30ef086c84a4197cc27dd6678f40f7bf558c3e"
+  integrity sha512-M9OIU3edpMQfAEDpseVIZHcxOCEo9rRyzwetdxY9BxIs+L/5OsoOU8tjdyKTSAVUMD3BcyGmVC3vES7r/9ZJQw==
+  dependencies:
+    classnames "^2.2.6"
+
 "@clayui/button@^3.4.0":
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/@clayui/button/-/button-3.4.0.tgz#76eef1813ff483c907474091146a7e0dc59aaae1"
