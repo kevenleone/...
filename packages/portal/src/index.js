@@ -1,4 +1,5 @@
 import '@clayui/css/lib/css/atlas.css'
+import './scss/main.scss'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
