@@ -1,11 +1,10 @@
 import classNames from 'classnames'
-import React, { useContext, useRef } from 'react'
+import React, { useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
-
-import BoardContext from '../Board/context'
+import { useDispatch } from 'react-redux'
 
 export default ({ data, index, listIndex }) => {
-  const { move } = useContext(BoardContext)
+  const dispatch = useDispatch()
   const ref = useRef()
   const [{ isDragging }, dragRef] = useDrag({
     collect: monitor => ({
@@ -45,7 +44,12 @@ export default ({ data, index, listIndex }) => {
         return
       }
 
-      move(draggedListIndex, targetListIndex, draggedIndex, targetIndex)
+      dispatch({
+        payload: {
+          from: draggedIndex, fromList: draggedListIndex, to: targetIndex, toList: targetListIndex
+        },
+        type: 'BOARD_MOVE_CARD_SAGA'
+      })
 
       item.index = targetIndex
       item.listIndex = targetListIndex
