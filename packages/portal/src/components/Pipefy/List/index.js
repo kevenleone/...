@@ -3,7 +3,7 @@ import { MdAdd } from 'react-icons/md'
 
 import Card from '../Card'
 
-export default function index ({ data }) {
+export default function index ({ data, index: listIndex }) {
   return (
     <div className='pipefy__list'>
       <header>
@@ -14,8 +14,12 @@ export default function index ({ data }) {
         </button>}
 
       </header>
-      {data.cards.map(card => (
-        <Card key={data.id} data={card} />
+      {data.cards.map((card, index) => (
+        <Card
+          key={index}
+          listIndex={listIndex}
+          index={index}
+          data={card} />
       ))}
     </div>
   )

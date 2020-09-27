@@ -18,7 +18,7 @@
         width: 24px;
         height: 24px;
     }
-    
+
     label {
         width: 10px;
         height: 10px;
@@ -30,6 +30,19 @@
     p {
         font-weight: 500;
         line-height: 20px;
+    }
+}
+
+.pipefy__card.isDragging {
+    border: 2px dashed rgba(0, 0, 0, 0.2);
+    padding-top: 31px;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    cursor: grabbing;
+
+    p, img, header {
+        opacity: 0;
     }
 }
 
