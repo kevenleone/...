@@ -24,6 +24,10 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: row;
 }
 
+.content {
+  width: 75%;
+}
+
 #left {
   flex: 1;
   display: flex;
@@ -83,7 +87,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #signin .secondary-btn, .or, .links {
-  width: 60%;
+  width: 100%;
 }
 
 #signin .links a {

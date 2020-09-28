@@ -92,6 +92,28 @@ export function loadLists () {
           labels: ['#7159c1']
         }
       ]
+    },
+    {
+      title: 'Almost Done',
+      creatable: false,
+      done: true,
+      cards: [
+        {
+          id: 10,
+          content: 'Gravar aula sobre deploy e CI com React Native',
+          labels: []
+        },
+        {
+          id: 12,
+          content: 'Gravar testes e deploy ReactJS',
+          labels: ['#54e1f7']
+        },
+        {
+          id: 13,
+          content: 'Gravar Aula "Internacionalização de aplicações Node.js, ReactJS e React Native"',
+          labels: ['#7159c1']
+        }
+      ]
     }
   ]
 }

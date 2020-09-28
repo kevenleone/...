@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import ApplicationBar from './components/ApplicationBar'
-import Auth from './pages/Auth'
+import Auth from './pages/Auth/Auth'
 import Home from './pages/Home'
 import Pipefy from './pages/Pipefy'
 

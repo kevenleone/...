@@ -1,4 +1,4 @@
-import './index.css'
+import './Auth.css'
 
 import { ClayInput } from '@clayui/form'
 import React from 'react'
