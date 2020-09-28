@@ -10,7 +10,9 @@ export default function SignIn () {
       <div id="left">
         <div id="signin">
           <div className="logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Liferay-logo-full-color-2x.png" alt="Alural Xight" />
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Liferay-logo-full-color-2x.png"
+              alt="Alural Xight" />
           </div>
           <form>
             <div>

@@ -9,7 +9,8 @@ module.exports = {
     'standard',
     'prettier/standard',
     'plugin:cypress/recommended',
-    'plugin:react/recommended'
+    'plugin:react/recommended',
+    'prettier/react'
   ],
   globals: {
     Atomics: 'readonly',
@@ -26,7 +27,8 @@ module.exports = {
     'simple-import-sort',
     'sort-destructure-keys',
     'sort-keys-fix',
-    'react'
+    'react',
+    'prettier'
   ],
   rules: {
     'cypress/assertion-before-screenshot': 'warn',
