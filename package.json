@@ -7,7 +7,9 @@
     "private": true,
     "scripts": {
       "format": "eslint packages/**/src/* --ext .js --fix",
-      "test": "jest"
+      "test": "jest",
+      "start:frontend": "yarn workspace @monorepo/frontend start",
+      "start:backend": "yarn workspace @monorepo/backend dev"
     },
     "workspaces": {
       "packages": [

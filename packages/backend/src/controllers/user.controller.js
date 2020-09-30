@@ -1,38 +1,65 @@
-const User = require('../models/user.model')
+const jwt = require('jsonwebtoken')
+const { promisify } = require('util')
 
-module.exports = {
-  async destroy (req, res) {
-    const { id } = req.params
-    await User.findByIdAndDelete(id)
-    res.send({ message: 'User deleted with success' })
-  },
-  async get (req, res) {
-    const { id } = req.params
-    try {
-      const user = await User.findById(id)
-      res.send({ user })
-    } catch (err) {
-      res.send({ message: 'Id not exists' })
-    }
-  },
-  async index (req, res) {
-    const data = await User.find()
-    res.send({ data })
-  },
-  async store (req, res) {
-    const user = req.body
-    const data = await User.create(user)
-    res.send(data)
-  },
-  async update (req, res) {
-    const { id } = req.params
-    const body = req.body
-    try {
-      const user = await User.findByIdAndUpdate(id, body)
-      res.send({ user: user })
-    } catch (err) {
-      res.send({ message: 'Id not exists' })
-    }
+const { compareHash, encrypt, JWT_SECRET } = require('../utils/helpers')
+const UserModel = require('../models/user.model')
+const Controller = require('./controller')
+
+const assignToken = promisify(jwt.sign)
+
+class User extends Controller {
+  constructor () {
+    super(UserModel, 'user')
   }
 
+  async getUserOrFail (email) {
+    if (!email) {
+      throw new Error(this.i18n.get('EMAIL_REQUIRED'))
+    }
+
+    const user = await UserModel.findOne({
+      where: {
+        email
+      }
+    })
+
+    if (!user) {
+      throw new Error('User not exists')
+    }
+
+    return user
+  }
+
+  async auth (req, res) {
+    const { email, password } = req.body
+    const user = await this.getUserOrFail(email)
+    const passwordMatch = compareHash(password, user.password)
+
+    if (!passwordMatch) {
+      return res.status(400).send({ message: 'Invalid Credentials' })
+    }
+
+    const token = await assignToken(user, JWT_SECRET)
+
+    res.send({ token })
+  }
+
+  store (req, res) {
+    const { password } = req.body
+    const hashedPassword = encrypt(password)
+    req.body.password = hashedPassword
+
+    return super.store(req, res)
+  }
+
+  async recovery (req, res) {
+    const { email } = req.body
+    await this.getUserOrFail(email)
+
+    res.json({
+      message: 'An email was sent with password recovery'
+    })
+  }
 }
+
+module.exports = new User()

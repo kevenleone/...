@@ -1,6 +1,6 @@
 {
   "name": "@monorepo/i18n",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "index.js",
   "license": "MIT"
 }

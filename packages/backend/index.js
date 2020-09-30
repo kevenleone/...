@@ -1,7 +1,7 @@
 const cors = require('cors')
 const express = require('express')
 const bodyParser = require('body-parser')
-const routes = require('./src/router')
+const Routes = require('./src/routes')
 const mongoose = require('mongoose')
 
 mongoose.connect('mongodb://localhost:27017/zzz', {
@@ -16,7 +16,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.use('/api', routes)
+app.use('/api', Routes.UserRoute)
 
 app.listen(PORT, () => {
   console.log(`Server listening ${PORT}`)
