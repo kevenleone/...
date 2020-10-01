@@ -1,10 +1,16 @@
 import produce from 'immer'
-import { put, select } from 'redux-saga/effects'
+import { call, put, select } from 'redux-saga/effects'
 
-import { loadLists } from '../../services'
+// import { loadLists } from '../../services'
+import { generators } from '../../utils'
 
 export function * fetchBoards () {
-  yield put({ payload: loadLists(), type: 'SET_BOARD' })
+  const response = yield call(generators.fetchApi, {
+    loading: true,
+    method: 'get',
+    url: '/board'
+  })
+  yield put({ payload: response.data, type: 'SET_BOARD' })
 }
 
 export function * moveCard (action) {

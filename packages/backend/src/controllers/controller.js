@@ -9,21 +9,32 @@ class Controller {
     this.logger = logger
   }
 
+  sendErrorResponse (res, { data, message }) {
+    res.status(400).send({
+      data,
+      message
+    })
+  }
+
+  sendSuccessResponse (res, { data, message }) {
+    res.send({
+      data,
+      message
+    })
+  }
+
   async store (req, res) {
     const { body } = req
     const data = await this.model.create(body)
-    res.json({
+    this.sendSuccessResponse(res, {
       data,
       message: this.i18n.sub('CREATED_SUCCESS', this.name)
     })
   }
 
   async getAll (req, res) {
-    const where = req.params
-    const data = await this.model.find({
-      where
-    })
-    res.json({
+    const data = await this.model.find()
+    this.sendSuccessResponse(res, {
       data
     })
   }
@@ -31,13 +42,13 @@ class Controller {
   async getOne (req, res) {
     const { id } = req.params
     const data = await this.model.findById(id)
-    res.json({ data })
+    this.sendSuccessResponse(res, { data })
   }
 
   async update (req, res) {
     const { body, params: { id } } = req
     const data = await this.model.findByIdAndUpdate(id, body)
-    res.json({
+    this.sendSuccessResponse(res, {
       data,
       message: this.i18n.sub('UPDATE_SUCCESS', this.name)
     })
@@ -51,7 +62,7 @@ class Controller {
       }
     }
     const response = await this.model.delete(condition)
-    res.json({
+    this.sendSuccessResponse(res, {
       data: response,
       message: this.i18n.sub('DELETE_SUCCESS', this.name)
     })

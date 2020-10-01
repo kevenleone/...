@@ -17,11 +17,7 @@ class User extends Controller {
       throw new Error(this.i18n.get('EMAIL_REQUIRED'))
     }
 
-    const user = await UserModel.findOne({
-      where: {
-        email
-      }
-    })
+    const user = await UserModel.findOne({ email }).lean()
 
     if (!user) {
       throw new Error('User not exists')
@@ -41,15 +37,29 @@ class User extends Controller {
 
     const token = await assignToken(user, JWT_SECRET)
 
-    res.send({ token })
+    const loggedUser = {
+      ...user
+    }
+
+    delete loggedUser.password
+
+    this.sendSuccessResponse(res, { data: { token, user: loggedUser } })
   }
 
-  store (req, res) {
-    const { password } = req.body
-    const hashedPassword = encrypt(password)
-    req.body.password = hashedPassword
+  async store (req, res) {
+    const { email, password } = req.body
 
-    return super.store(req, res)
+    try {
+      await this.getUserOrFail(email)
+      this.sendErrorResponse(res, { message: this.i18n.get('email-already-exists') })
+    } catch (e) {
+      if (e.message === 'User not exists') {
+        const hashedPassword = encrypt(password)
+        req.body.password = hashedPassword
+
+        return super.store(req, res)
+      }
+    }
   }
 
   async recovery (req, res) {

@@ -16,14 +16,14 @@ import Routes from './routes'
 function App () {
   return (
     <Provider store={store}>
-      <DndProvider backend={HTML5Backend}>
-        <ConnectedRouter history={history}>
+      <ConnectedRouter history={history}>
+        <DndProvider backend={HTML5Backend}>
           <ClayIconSpriteContext.Provider value={spritemap}>
             <ToastContainer />
             <Routes />
           </ClayIconSpriteContext.Provider>
-        </ConnectedRouter>
-      </DndProvider>
+        </DndProvider>
+      </ConnectedRouter>
     </Provider>
   )
 }

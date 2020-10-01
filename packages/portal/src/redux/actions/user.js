@@ -8,13 +8,13 @@ export function * signUp (action) {
 
   try {
     yield call(generators.fetchApi, {
-      method: 'post',
-      url: '/register',
       body,
-      loading: true
+      loading: true,
+      method: 'post',
+      url: '/register'
     })
     delete body.password
-    yield put({ type: 'SET_FORMUSER', payload: body })
+    yield put({ payload: body, type: 'SET_FORMUSER' })
   } catch (e) {
     formRef.current.setErrors({ email: 'Email Already Exists' })
   }
@@ -25,17 +25,19 @@ export function * signIn (action) {
 
   try {
     const response = yield call(generators.fetchApi, {
-      method: 'post',
-      url: '/auth',
       body,
-      softLoading: true
+      method: 'post',
+      softLoading: true,
+      url: '/auth'
     })
     const data = response.data
-    localStorage.setItem('@token', data.token.token)
-    delete body.password
-    yield put({ type: 'SET_LOGGEDUSER', payload: data })
-    yield put(push('/dashboard'))
-  } catch (e) {}
+    console.log({ response })
+    localStorage.setItem('@token', data.token)
+    yield put({ payload: data, type: 'SET_LOGGEDUSER' })
+    yield put(push('/'))
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 export function * signOut () {

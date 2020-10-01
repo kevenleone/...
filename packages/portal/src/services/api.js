@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const baseURL = 'http://localhost:3333'
+export const baseURL = 'http://localhost:3333/api'
 const api = axios.create({ baseURL })
 
 api.interceptors.request.use((request) => {
@@ -15,6 +15,7 @@ api.interceptors.response.use((response) => {
   }
   return response
 }, (error) => {
+  error.message = error.response.data.message
   return Promise.reject(error)
 })
 

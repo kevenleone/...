@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 import useLang from '../../../hooks/useLang'
-import axios from '../../../services/api'
 
 const SignIn = ({ changePage, history }) => {
   const i18n = useLang()
@@ -21,20 +20,10 @@ const SignIn = ({ changePage, history }) => {
 
   const onSubmit = async (event) => {
     event.preventDefault()
-    try {
-      const response = await axios.post('/auth', state)
-      const { token } = response.data
-      dispatch({
-        payload: {
-          token
-        },
-        type: 'SET_LOGGED_USER'
-      })
-      console.log({ description: 'welcome-back' })
-      history.push('/dashboard')
-    } catch (e) {
-      console.log({ description: e.message })
-    }
+    dispatch({
+      payload: state,
+      type: 'SIGNIN_SAGA'
+    })
   }
 
   return (

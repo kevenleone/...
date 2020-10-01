@@ -13,7 +13,7 @@ const translate = (
 ) => {
   word = word.toUpperCase()
 
-  return languages[language](word) || word
+  return languages[language][word] || word
 }
 
 const sub = (word, words) => {

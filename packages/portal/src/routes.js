@@ -1,22 +1,56 @@
 import React from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import {
+  Redirect,
+  Route, Switch
+} from 'react-router-dom'
 
 import ApplicationBar from './components/ApplicationBar'
-import Auth from './pages/Auth/Auth'
-import Home from './pages/Home'
-import Pipefy from './pages/Pipefy'
+import { Routes } from './routelist'
 
-const Routes = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route path="/auth" exact component={Auth} />
-      <>
-        <ApplicationBar />
-        <Route path="/" exact component={Pipefy} />
-        <Route path="/home" exact component={Home} />
-      </>
-    </Switch>
-  </BrowserRouter>
+const isAuthenticated = localStorage.getItem('@token')
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { me, token } = useSelector((state) => state.user)
+  return (
+    <Route
+      {...rest}
+      render={(props) => {
+        if (token && me) {
+          return (
+            <div>
+              <ApplicationBar />
+              <Component {...props} />
+            </div>
+          )
+        }
+        return <Redirect to={{ pathname: '/auth', state: { from: props.location } }} />
+      }}
+    />
+  )
+}
+
+const PublicRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) => (
+      isAuthenticated && window.location.pathname === '/auth'
+        ? <Redirect to={{ pathname: '/' }} />
+        : <Component {...props} />
+    )}
+  />
 )
 
-export default Routes
+const Router = () => {
+  const Private = Routes.filter((r) => !r.private && r.component)
+  const Public = Routes.filter((r) => r.private && r.component)
+  return (
+    <Switch>
+      { Private.map((r) => <PublicRoute key={r.title} {...r} />)}
+      { Public.map((r) => <PrivateRoute key={r.title} {...r} />)}
+      <Redirect to="/" />
+    </Switch>
+  )
+}
+
+export default Router
