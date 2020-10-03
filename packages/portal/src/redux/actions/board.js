@@ -13,6 +13,15 @@ export function * fetchBoards () {
   yield put({ payload: response.data, type: 'SET_BOARD' })
 }
 
+function * updateBoard (board) {
+  yield call(generators.fetchApi, {
+    body: board,
+    loading: true,
+    method: 'put',
+    url: '/board'
+  })
+}
+
 export function * moveCard (action) {
   const { from, fromList, to, toList } = action.payload
   const { board: { list: lists } } = yield select()
@@ -24,6 +33,7 @@ export function * moveCard (action) {
       draft[toList].cards.splice(to, 0, dragged)
     }
   )
+  yield updateBoard(newList)
   yield put({ payload: newList, type: 'SET_BOARD' })
 }
 

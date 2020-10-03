@@ -3,6 +3,9 @@ import { useDispatch } from 'react-redux'
 
 import ManagementToolbar from '../../components/ManagementToolbarShort'
 import Board from '../../components/Pipefy/Board'
+import List from './list'
+
+export { List }
 
 const Pipefy = () => {
   const dispatch = useDispatch()

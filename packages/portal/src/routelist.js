@@ -1,11 +1,11 @@
 import Sign from './pages/Auth'
 import Home from './pages/Home'
-import Pipefy from './pages/Pipefy'
+import Pipefy, { List } from './pages/Pipefy'
 
 const Routes = [
   {
     active: true,
-    component: Pipefy,
+    component: List,
     exact: true,
     path: '/',
     private: true,
