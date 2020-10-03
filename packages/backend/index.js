@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use('/api', Routes.UserRoute)
 app.use('/api', Routes.BoardRoute)
+app.use('/api', Routes.PipeRoute)
 
 app.listen(PORT, () => {
   console.log(`Server listening ${PORT}`)

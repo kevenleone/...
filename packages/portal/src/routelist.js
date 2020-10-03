@@ -1,15 +1,32 @@
 import Sign from './pages/Auth'
+import Dashboard from './pages/Dashboard'
 import Home from './pages/Home'
 import Pipefy, { List } from './pages/Pipefy'
 
 const Routes = [
   {
     active: true,
-    component: List,
+    component: Dashboard,
     exact: true,
     path: '/',
     private: true,
     title: 'Dashboard'
+  },
+  {
+    active: true,
+    component: List,
+    exact: true,
+    path: '/retro',
+    private: true,
+    title: 'My Retros'
+  },
+  {
+    active: true,
+    component: Pipefy,
+    exact: true,
+    path: '/retro/:id',
+    private: true,
+    title: 'Fun Retro - App Builder'
   },
   {
     active: true,

@@ -33,7 +33,7 @@ export function * moveCard (action) {
       draft[toList].cards.splice(to, 0, dragged)
     }
   )
-  yield updateBoard(newList)
+  // yield updateBoard(newList)
   yield put({ payload: newList, type: 'SET_BOARD' })
 }
 

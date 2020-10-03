@@ -1,23 +1,26 @@
 import { ClayButtonWithIcon } from '@clayui/button'
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-const spritemap = require('@clayui/css/lib/images/icons/icons.svg')
 
-const ApplicationBar = ({ history: { location, push } }) => {
+import { Routes } from '../../routelist'
+
+const ApplicationBar = ({ history: { goBack }, match: { path: pathname } }) => {
+  const route = Routes.find((route) => route.path === pathname) || {}
+  const applicationTitle = route.title || 'Unknown Name'
+
   return (
     <nav className="application-bar application-bar-dark navbar navbar-expand-md">
       <div className="container-fluid container-fluid-max-xl">
         <ul className="navbar-nav">
-          {location.pathname !== '/' &&
+          {pathname !== '/' &&
           <li className="nav-item">
             <ClayButtonWithIcon
-              onClick={() => push('/')}
-              spritemap={spritemap}
+              onClick={() => goBack()}
               displayType="unstyled"
               symbol="angle-left" />
           </li>}
         </ul>
-        <div className="navbar-title navbar-text-truncate">Fun Retro</div>
+        <div className="navbar-title navbar-text-truncate">{applicationTitle}</div>
         <ul className="navbar-nav">
           <li className="dropdown nav-item">
             <button

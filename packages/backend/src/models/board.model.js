@@ -12,4 +12,7 @@ const Board = new Schema({
   title: String
 })
 
-module.exports = model('board', Board)
+module.exports = {
+  Schema: Board,
+  model: model('board', Board)
+}
