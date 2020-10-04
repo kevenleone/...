@@ -1,10 +1,11 @@
 import { takeLatest } from 'redux-saga/effects'
 
-import { addCard, fetchBoards, moveCard, renameCardName, renameListName } from './actions/board'
-import { getAll as getAllPipes } from './actions/pipe'
+import { addCard, fetchBoards, getAll as getAllPipes, moveCard, renameCardName, renameListName } from './actions/pipe'
 import { signIn, signOut, signUp } from './actions/user'
 
 export default function * root () {
+  yield takeLatest('GET_PIPE_SAGA', fetchBoards)
+
   yield takeLatest('REFRESH_BOARD_SAGA', fetchBoards)
   yield takeLatest('BOARD_MOVE_CARD_SAGA', moveCard)
   yield takeLatest('BOARD_ADD_CARD_SAGA', addCard)

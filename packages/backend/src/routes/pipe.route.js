@@ -1,9 +1,17 @@
 const Pipe = require('../controllers/pipe.controller')
+const Pusher = require('../utils/pusher')
 const Route = require('./router')
 
 class PipeRouter extends Route {
   constructor () {
-    super('pipe', Pipe)
+    const middlewares = function (req, res, next) {
+      if (req.method === 'PUT') {
+        const id = req.url.split('/').pop()
+        Pusher.trigger('on-change-pipe', id, {})
+      }
+      next()
+    }
+    super('pipe', Pipe, [middlewares])
   }
 
   initialize () {
@@ -11,4 +19,6 @@ class PipeRouter extends Route {
   }
 }
 
-module.exports = new PipeRouter().route
+const route = new PipeRouter().route
+
+module.exports = route
