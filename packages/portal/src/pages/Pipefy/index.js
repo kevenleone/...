@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import ManagementToolbar from '../../components/ManagementToolbarShort'
@@ -12,16 +12,16 @@ const Pipefy = ({ match: { params: { id } } }) => {
   const dispatch = useDispatch()
   const { me: { _id, sessionId } } = useSelector(state => state.user)
 
-  const getBoard = () => {
+  const getBoard = useCallback(() => {
     dispatch({
       payload: id,
       type: 'REFRESH_BOARD_SAGA'
     })
-  }
+  }, [dispatch, id])
 
   useEffect(() => {
     getBoard()
-  }, [dispatch])
+  }, [dispatch, getBoard])
 
   useEffect(() => {
     const channel = pusher.subscribe('on-change-pipe')
@@ -31,7 +31,7 @@ const Pipefy = ({ match: { params: { id } } }) => {
       }
       getBoard()
     })
-  }, [])
+  }, [_id, id, sessionId, getBoard])
 
   return (
     <div>

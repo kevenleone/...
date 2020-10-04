@@ -1,19 +1,12 @@
 
 import './Auth.css'
 
-import { ClayInput } from '@clayui/form'
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
-import useLang from '../../hooks/useLang'
-import { Recovery, SignIn } from './SignIn'
+import { SignIn } from './SignIn'
 
 export default function Home () {
-  const [signInPage, setSignInPage] = useState(true)
-  const i18n = useLang()
-
-  const changePage = () => setSignInPage(!signInPage)
-
   return (
     <div id="wrapper">
       <div id="left">
@@ -24,7 +17,7 @@ export default function Home () {
               alt="Alural Xight" />
           </div>
           <div className='content'>
-            {signInPage ? <SignIn></SignIn> : <Recovery></Recovery>}
+            <SignIn />
           </div>
         </div>
         <footer id="main-footer">

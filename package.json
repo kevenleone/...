@@ -17,6 +17,7 @@
       ]
     },
     "devDependencies": {
+      "@monorepo/common": "*",
       "@monorepo/eslint-config-node": "*",
       "jest": "^24.9.0"
     }

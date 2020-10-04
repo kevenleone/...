@@ -1,7 +1,13 @@
+import { language } from '@monorepo/common'
 import produce from 'immer'
+import { toast } from 'react-toastify'
 import { call, put, select } from 'redux-saga/effects'
 
 import { generators } from '../../utils'
+
+function toastMessage (message) {
+  toast.info(language.get(message))
+}
 
 function * updatePipe (boards) {
   const { pipe: { pipe } } = yield select()
@@ -53,6 +59,7 @@ export function * moveCard (action) {
     }
   )
   yield updatePipe(newList)
+  toastMessage('card-moved')
 }
 
 export function * addCard (action) {
@@ -66,6 +73,7 @@ export function * addCard (action) {
     }
   )
   yield updatePipe(newList)
+  toastMessage('card-created')
 }
 
 export function * renameCardName (action) {
@@ -77,6 +85,7 @@ export function * renameCardName (action) {
     }
   )
   yield updatePipe(newList)
+  toastMessage('card-renamed')
 }
 
 export function * renameListName (action) {
@@ -88,4 +97,5 @@ export function * renameListName (action) {
     }
   )
   yield updatePipe(newList)
+  toastMessage('list-name-renamed')
 }
