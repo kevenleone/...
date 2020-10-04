@@ -31,7 +31,6 @@ export function * signIn (action) {
       url: '/auth'
     })
     const data = response.data
-    console.log({ response })
     localStorage.setItem('@token', data.token)
     yield put({ payload: data, type: 'SET_LOGGEDUSER' })
     yield put(push('/'))

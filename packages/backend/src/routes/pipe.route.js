@@ -6,8 +6,14 @@ class PipeRouter extends Route {
   constructor () {
     const middlewares = function (req, res, next) {
       if (req.method === 'PUT') {
+        const loggedUser = req.loggedUser
         const id = req.url.split('/').pop()
-        Pusher.trigger('on-change-pipe', id, {})
+        Pusher.trigger('on-change-pipe', id, {
+          user: {
+            _id: loggedUser._id,
+            sessionId: loggedUser.sessionId
+          }
+        })
       }
       next()
     }

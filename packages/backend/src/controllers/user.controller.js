@@ -35,13 +35,15 @@ class User extends Controller {
       return res.status(400).send({ message: 'Invalid Credentials' })
     }
 
-    const token = await assignToken(user, JWT_SECRET)
-
     const loggedUser = {
       ...user
     }
 
     delete loggedUser.password
+    const token = await assignToken({
+      ...loggedUser,
+      sessionId: new Date().getTime()
+    }, JWT_SECRET)
 
     this.sendSuccessResponse(res, { data: { token, user: loggedUser } })
   }

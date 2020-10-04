@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import ManagementToolbar from '../../components/ManagementToolbarShort'
 import Board from '../../components/Pipefy/Board'
@@ -10,9 +10,9 @@ export { List }
 
 const Pipefy = ({ match: { params: { id } } }) => {
   const dispatch = useDispatch()
+  const { me: { _id, sessionId } } = useSelector(state => state.user)
 
   const getBoard = () => {
-    console.log('GetBoard')
     dispatch({
       payload: id,
       type: 'REFRESH_BOARD_SAGA'
@@ -25,12 +25,12 @@ const Pipefy = ({ match: { params: { id } } }) => {
 
   useEffect(() => {
     const channel = pusher.subscribe('on-change-pipe')
-    channel.bind(id, (data) => {
-      console.log('HElloooo', data)
+    channel.bind(id, ({ user }) => {
+      if (user._id === _id && user.sessionId === sessionId) {
+        return
+      }
       getBoard()
     })
-
-    // socket.emit('connection', { user: 'keven' })
   }, [])
 
   return (

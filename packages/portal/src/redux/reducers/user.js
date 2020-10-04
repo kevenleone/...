@@ -1,11 +1,15 @@
+import jwtDecode from 'jwt-decode'
+
+const token = localStorage.getItem('@token')
+let me
+
+if (token) {
+  me = jwtDecode(token)
+}
+
 const INITIAL_STATE = {
-  loginForm: {
-    email: '',
-    password: ''
-  },
-  me: JSON.parse(localStorage.getItem('@me') || '{}'),
-  pageType: 'SignIn',
-  token: localStorage.getItem('@token')
+  me,
+  token
 }
 
 export default function (state = INITIAL_STATE, action) {
@@ -18,12 +22,6 @@ export default function (state = INITIAL_STATE, action) {
         me,
         token
       }
-    }
-    case 'SET_FORMUSER': {
-      return { ...state, loginForm: action.payload, pageType: 'SignIn' }
-    }
-    case 'SET_PAGETYPE': {
-      return { ...state, pageType: action.payload.payload.pageType }
     }
     default:
       return state

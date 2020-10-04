@@ -4,6 +4,8 @@ const bodyParser = require('body-parser')
 const Routes = require('./src/routes')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
+const jwtMiddleware = require('./src/middlewares/jwt.middleware')
+
 require('dotenv').config()
 
 mongoose.connect('mongodb://localhost:27017/zzz', {
@@ -20,9 +22,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(morgan('tiny'))
 
-app.use('/api', Routes.UserRoute)
-app.use('/api', Routes.BoardRoute)
-app.use('/api', Routes.PipeRoute)
+app.use('/api', jwtMiddleware, Routes)
 
 app.listen(PORT, () => {
   console.log(`Server listening ${PORT}`)
