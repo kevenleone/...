@@ -1442,6 +1442,15 @@
     "@clayui/shared" "^3.2.3"
     classnames "^2.2.6"
 
+"@clayui/popover@^3.5.0":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@clayui/popover/-/popover-3.5.0.tgz#4b2d57c0397f0b3b29e7f79daa8d67c142dab580"
+  integrity sha512-8oSUn/GsvkfEfrkZCPiInCtk70Vltc0uXf6g3N7sqi7Spfe7zwdYgk6XdNr9ECiWICjdlQiG1d4TaZi4jcMzXg==
+  dependencies:
+    "@clayui/shared" "^3.3.0"
+    classnames "^2.2.6"
+    dom-align "^1.10.2"
+
 "@clayui/shared@^3.2.3":
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/@clayui/shared/-/shared-3.2.3.tgz#c4298cbb1cd0c460d94d493102a0f8fe2048d73c"

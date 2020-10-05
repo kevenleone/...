@@ -1,11 +1,11 @@
 import ClayButton, { ClayButtonWithIcon } from '@clayui/button'
 import { ClayDropDownWithItems } from '@clayui/drop-down'
-import { ClayCheckbox, ClayInput } from '@clayui/form'
+import { ClayInput } from '@clayui/form'
 import ClayIcon from '@clayui/icon'
 import ClayManagementToolbar from '@clayui/management-toolbar'
 import React, { useState } from 'react'
 
-export default () => {
+export default ({ AddButton = <></> }) => {
   const filterItems = [
     { label: 'Filter Action 1', onClick: () => alert('Filter clicked') },
     { label: 'Filter Action 2', onClick: () => alert('Filter clicked') }
@@ -37,10 +37,6 @@ export default () => {
   return (
     <ClayManagementToolbar>
       <ClayManagementToolbar.ItemList>
-        <ClayManagementToolbar.Item>
-          <ClayCheckbox checked={false} onChange={() => {}} />
-        </ClayManagementToolbar.Item>
-
         <ClayDropDownWithItems
           items={filterItems}
 
@@ -128,7 +124,6 @@ export default () => {
         <ClayManagementToolbar.Item>
           <ClayDropDownWithItems
             items={viewTypes}
-
             trigger={
               <ClayButton
                 className="nav-link-monospaced nav-link"
@@ -144,10 +139,7 @@ export default () => {
         </ClayManagementToolbar.Item>
 
         <ClayManagementToolbar.Item>
-          <ClayButtonWithIcon
-            className="nav-btn nav-btn-monospaced"
-            symbol="plus"
-          />
+          <AddButton />
         </ClayManagementToolbar.Item>
       </ClayManagementToolbar.ItemList>
     </ClayManagementToolbar>

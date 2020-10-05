@@ -23,6 +23,7 @@
     "@clayui/nav": "^3.3.2",
     "@clayui/pagination-bar": "^3.1.12",
     "@clayui/panel": "^3.2.5",
+    "@clayui/popover": "^3.5.0",
     "@clayui/shared": "^3.2.3",
     "@clayui/table": "^3.0.7",
     "@clayui/tooltip": "^3.3.5",

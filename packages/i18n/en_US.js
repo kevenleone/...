@@ -19,6 +19,7 @@ module.exports = {
     lang: 'EN_US',
     logout: 'Logout',
     'my-account': 'My Account',
+    'new-retro': 'New Retro',
     or: 'Or',
     password: 'Password',
     profile: 'Profile',

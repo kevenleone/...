@@ -16,7 +16,7 @@ const Welcome = ({ history }) => {
               description="Click here, to manage your retrospective planning!"
               onClick={() => history.push('/retro')}
             >
-              <ClayIcon symbol="page-template" />
+              <ClayIcon symbol="message-boards" />
             </ClayCardWithNavigation>
           </div>
           <div className='col'>
