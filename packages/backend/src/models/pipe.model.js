@@ -2,7 +2,7 @@ const { model, Schema } = require('mongoose')
 const { Schema: BoardSchema } = require('./board.model')
 
 const Pipe = new Schema({
-  boards: [BoardSchema],
+  boards: { default: [], type: [BoardSchema] },
   createdDate: { default: new Date(), type: Date },
   description: String,
   modifiedDate: { default: new Date(), timestamps: true, type: Date },

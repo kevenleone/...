@@ -25,6 +25,23 @@ function * updatePipe (boards) {
   yield put({ payload: boards, type: 'SET_BOARD' })
 }
 
+export function * addPipe ({ payload }) {
+  try {
+    const { pipe: { pipes } } = yield select()
+
+    const pipe = yield call(generators.fetchApi, {
+      body: payload,
+      loading: true,
+      method: 'post',
+      url: '/pipe'
+    })
+    yield put({ payload: [...pipes, pipe.data], type: 'SET_PIPES' })
+    toast.success(pipe.message)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 export function * getAll () {
   try {
     const pipes = yield call(generators.fetchApi, {

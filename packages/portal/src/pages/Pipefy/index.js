@@ -21,6 +21,13 @@ const Pipefy = ({ match: { params: { id } } }) => {
 
   useEffect(() => {
     getBoard()
+
+    return () => {
+      dispatch({
+        payload: {},
+        type: 'SET_PIPE'
+      })
+    }
   }, [dispatch, getBoard])
 
   useEffect(() => {

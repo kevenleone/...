@@ -39,6 +39,24 @@ export function * signIn (action) {
   }
 }
 
+export function * SignInGithub (action) {
+  const body = action.payload
+  try {
+    const response = yield call(generators.fetchApi, {
+      body,
+      method: 'post',
+      softLoading: true,
+      url: '/auth_github'
+    })
+    const data = response.data
+    localStorage.setItem('@token', data.token)
+    yield put({ payload: data, type: 'SET_LOGGEDUSER' })
+    yield put(push('/'))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 export function * signOut () {
   localStorage.removeItem('@token')
   localStorage.removeItem('@me')

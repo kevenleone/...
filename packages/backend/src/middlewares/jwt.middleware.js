@@ -4,7 +4,7 @@ const { promisify } = require('util')
 const { JWT_SECRET } = require('../utils/helpers')
 const verify = promisify(jwt.verify)
 
-const publicRoutes = ['/api/auth']
+const publicRoutes = ['/api/auth', '/api/auth_github']
 
 module.exports = async function (req, res, next) {
   const { headers: { authorization }, originalUrl } = req

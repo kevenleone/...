@@ -28,7 +28,7 @@ class Controller {
     const data = await this.model.create(body)
     this.sendSuccessResponse(res, {
       data,
-      message: this.i18n.sub('CREATED_SUCCESS', this.name)
+      message: this.i18n.sub('created-success', this.name)
     })
   }
 
@@ -50,7 +50,7 @@ class Controller {
     const data = await this.model.findByIdAndUpdate(id, body)
     this.sendSuccessResponse(res, {
       data,
-      message: this.i18n.sub('UPDATE_SUCCESS', this.name)
+      message: this.i18n.sub('update-success', this.name)
     })
   }
 
@@ -64,7 +64,7 @@ class Controller {
     const response = await this.model.delete(condition)
     this.sendSuccessResponse(res, {
       data: response,
-      message: this.i18n.sub('DELETE_SUCCESS', this.name)
+      message: this.i18n.sub('delete-success', this.name)
     })
   }
 }

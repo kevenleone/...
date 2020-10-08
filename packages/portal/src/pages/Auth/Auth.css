@@ -70,6 +70,12 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
+.github-btn {
+  background-color: #181818 !important;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
 #signin .text-input {
   margin-bottom: 1.3rem;
   width: 100%;
@@ -107,7 +113,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #signin .or span {
-  color: #ccc;
+  color: black;
   padding: 0 0.8rem;
 }
 

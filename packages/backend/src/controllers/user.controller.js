@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const { promisify } = require('util')
+const request = require('request-promise')
 
 const { compareHash, encrypt, JWT_SECRET } = require('../utils/helpers')
 const UserModel = require('../models/user.model')
@@ -26,6 +27,13 @@ class User extends Controller {
     return user
   }
 
+  async assignToken (data) {
+    return assignToken({
+      ...data,
+      sessionId: new Date().getTime()
+    }, JWT_SECRET)
+  }
+
   async auth (req, res) {
     const { email, password } = req.body
     const user = await this.getUserOrFail(email)
@@ -40,12 +48,33 @@ class User extends Controller {
     }
 
     delete loggedUser.password
-    const token = await assignToken({
-      ...loggedUser,
-      sessionId: new Date().getTime()
-    }, JWT_SECRET)
+    const token = this.assignToken(loggedUser)
 
     this.sendSuccessResponse(res, { data: { token, user: loggedUser } })
+  }
+
+  async authGithub (req, res) {
+    const baseURL = 'https://github.com/login/oauth/access_token'
+    const { code } = req.body
+    const { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } = process.env
+    const url = `${baseURL}?code=${code}&client_id=${GITHUB_CLIENT_ID}&client_secret=${GITHUB_CLIENT_SECRET}`
+    const response = await request.post(url)
+
+    if (response.includes('access_token=')) {
+      const token = response.split('=')[1].split('&').shift()
+      const user = await request.get('https://api.github.com/user', {
+        headers: {
+          Authorization: `token ${token}`,
+          'User-Agent': 'Planner App - DEV'
+        },
+        json: true
+      })
+
+      const jwtToken = await this.assignToken(user)
+      return this.sendSuccessResponse(res, { data: { token: jwtToken, user: user } })
+    }
+
+    return this.sendErrorResponse(res, { message: 'error' })
   }
 
   async store (req, res) {

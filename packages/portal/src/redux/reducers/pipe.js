@@ -9,6 +9,7 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, pipes: action.payload }
     }
     case 'SET_PIPE': {
+      console.log(action.payload)
       return { ...state, pipe: action.payload }
     }
     default:

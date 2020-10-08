@@ -5,7 +5,7 @@ import ClayIcon from '@clayui/icon'
 import ClayManagementToolbar from '@clayui/management-toolbar'
 import React, { useState } from 'react'
 
-export default ({ AddButton = <></> }) => {
+export default ({ AddButton }) => {
   const filterItems = [
     { label: 'Filter Action 1', onClick: () => alert('Filter clicked') },
     { label: 'Filter Action 2', onClick: () => alert('Filter clicked') }
@@ -139,7 +139,7 @@ export default ({ AddButton = <></> }) => {
         </ClayManagementToolbar.Item>
 
         <ClayManagementToolbar.Item>
-          <AddButton />
+          {AddButton && <AddButton />}
         </ClayManagementToolbar.Item>
       </ClayManagementToolbar.ItemList>
     </ClayManagementToolbar>

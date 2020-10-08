@@ -9,6 +9,7 @@ class UserRouter extends Route {
   initialize () {
     super.initialize()
     this.route.post('/auth', User.auth.bind(User))
+    this.route.post('/auth_github', User.authGithub.bind(User))
     this.route.post('/recovery', User.recovery.bind(User))
   }
 }

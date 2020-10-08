@@ -26,6 +26,10 @@ const SignIn = ({ changePage, history }) => {
     })
   }
 
+  const githubOAuth = () => {
+    window.location.href = 'https://github.com/login/oauth/authorize?client_id=01e1501a136ae11e4006&scope=user'
+  }
+
   return (
     <>
       <label htmlFor="email">
@@ -64,6 +68,9 @@ const SignIn = ({ changePage, history }) => {
           <hr className="bar" />
         </div>
       </div>
+      <button onClick={githubOAuth} className="primary-btn github-btn">
+        {i18n.get('sign-in-github')}
+      </button>
       <button onClick={changePage} className="secondary-btn">
         {i18n.get('forgot-password')}
       </button>

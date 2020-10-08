@@ -1,4 +1,4 @@
-import Sign from './pages/Auth'
+import Sign, { AuthMiddleware } from './pages/Auth'
 import Dashboard from './pages/Dashboard'
 import Home from './pages/Home'
 import Pipefy, { List } from './pages/Pipefy'
@@ -41,6 +41,14 @@ const Routes = [
     component: Sign,
     exact: true,
     path: '/auth',
+    private: false,
+    title: 'Auth'
+  },
+  {
+    active: true,
+    component: AuthMiddleware,
+    exact: true,
+    path: '/authmiddleware',
     private: false,
     title: 'Auth'
   }
