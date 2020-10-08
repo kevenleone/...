@@ -17,7 +17,7 @@ function AuthMiddleware ({ history, location }) {
     } else {
       history.push('/auth')
     }
-  }, [])
+  }, [dispatch, history, location.search])
 
   return (
     <div className="m-auto">

@@ -60,6 +60,6 @@ export function * SignInGithub (action) {
 export function * signOut () {
   localStorage.removeItem('@token')
   localStorage.removeItem('@me')
-  yield put(replace('/sign'))
-  window.location.href = '/sign'
+  yield put(replace('/auth'))
+  window.location.href = '/auth'
 }

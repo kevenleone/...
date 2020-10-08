@@ -3,6 +3,7 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 
 import { Routes } from '../../routelist'
+import UserAvatar from './UserAvatar'
 
 const ApplicationBar = ({ history: { goBack }, match: { path: pathname } }) => {
   const route = Routes.find((route) => route.path === pathname) || {}
@@ -23,21 +24,7 @@ const ApplicationBar = ({ history: { goBack }, match: { path: pathname } }) => {
         <div className="navbar-title navbar-text-truncate">{applicationTitle}</div>
         <ul className="navbar-nav">
           <li className="dropdown nav-item">
-            <button
-              aria-expanded="false"
-              aria-haspopup="true"
-              className="btn btn-unstyled dropdown-toggle nav-btn nav-btn-monospaced"
-              data-toggle="dropdown"
-              type="button"
-            >
-              <svg
-                className="lexicon-icon lexicon-icon-ellipsis-v"
-                focusable="false"
-                role="presentation"
-              >
-                <use href="/images/icons/icons.svg#ellipsis-v"></use>
-              </svg>
-            </button>
+            <UserAvatar />
           </li>
         </ul>
       </div>
